@@ -182,7 +182,7 @@ def test_get_inputs(get_inputs):
 
 def test_get_init_cell(get_init_cell):
     with tf.Graph().as_default():
-        test_batch_size_ph = tf.placeholder(tf.int32)
+        test_batch_size_ph = tf.placeholder(tf.int32, [])
         test_rnn_size = 256
 
         cell, init_state = get_init_cell(test_batch_size_ph, test_rnn_size)
@@ -263,7 +263,7 @@ def test_build_nn(build_nn):
         # Check Shape
         assert logits.get_shape().as_list() == test_input_data_shape + [test_vocab_size], \
             'Outputs has wrong shape.  Found shape {}'.format(logits.get_shape())
-        assert final_state.get_shape().as_list() == [test_rnn_layer_size, 2, None, test_rnn_size], \
+        assert final_state.get_shape().as_list() == [test_rnn_layer_size, 2, 128, test_rnn_size], \
             'Final state wrong shape.  Found shape {}'.format(final_state.get_shape())
 
     _print_success_message()
